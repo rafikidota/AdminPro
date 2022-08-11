@@ -7,8 +7,16 @@ import { PagesRoutingModule } from './pages/pages-routing.module';
 import { NotPageFoundComponent } from './not-page-found/not-page-found.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
-  { path: '**', component: NotPageFoundComponent },
+
+  {
+    path: '',
+    redirectTo: '/dashboard',
+    pathMatch: 'full'
+  },
+  {
+    path: '**',
+    component: NotPageFoundComponent
+  },
 ];
 
 @NgModule({
