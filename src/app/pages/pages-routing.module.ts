@@ -14,12 +14,38 @@ const routes: Routes = [
     path: 'dashboard',
     component: PagesComponent,
     children: [
-      { path: '', component: DashboardComponent, data: { title: 'Dashboard' } },
-      { path: 'progress', component: ProgressComponent, data: { title: 'ProgressBar' } },
-      { path: 'chart', component: ChartComponent, data: { title: 'Gráfica #1' } },
-      { path: 'account-settings', component: AccountSettingsComponent, data: { title: 'Ajustes de cuenta' } },
-      { path: 'promise', component: PromiseComponent, data: { title: 'Promesas' } },
-      { path: 'rxjs', component: RxjsComponent, data: { title: 'RxJs' } },
+      {
+        path: '',
+        component: DashboardComponent,
+        data: { title: 'Dashboard' }
+      },
+      {
+        path: 'progress',
+        component: ProgressComponent,
+        data: { title: 'ProgressBar' }
+      },
+      {
+        path: 'chart',
+        component: ChartComponent,
+        data: { title: 'Gráfica #1' }
+      }
+      ,
+      {
+        path: 'account-settings', 
+        component: AccountSettingsComponent, 
+        data: { title: 'Ajustes de cuenta' }
+      },
+      {
+        path: 'promise', 
+        component: 
+        PromiseComponent, 
+        data: { title: 'Promesas' }
+      },
+      {
+        path: 'rxjs', 
+        component: RxjsComponent, 
+        data: { title: 'RxJs' }
+      },
     ]
   },
 ];
