@@ -25,7 +25,7 @@ const routes: Routes = [
         data: { title: 'ProgressBar' }
       },
       {
-        path: 'chart',
+        path: 'charts',
         component: ChartComponent,
         data: { title: 'Gráfica #1' }
       }
