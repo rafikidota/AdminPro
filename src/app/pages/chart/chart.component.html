@@ -1,1 +1,23 @@
-<p>chart works!</p>
+<div class="row">
+
+    <div class="col-6">
+        <app-doughnut title="Ventas"></app-doughnut>
+    </div>
+
+    <div class="col-6">
+        <app-doughnut title="Usando colores" [colors]="colors"></app-doughnut>
+    </div>
+
+</div>
+
+<div class="row">
+
+    <div class="col-6">
+        <app-doughnut title="Usando labels" [labels]="labels"></app-doughnut>
+    </div>
+
+    <div class="col-6">
+        <app-doughnut title="Usando data" [data]="data"></app-doughnut>
+    </div>
+
+</div>
