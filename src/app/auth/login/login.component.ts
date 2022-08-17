@@ -13,6 +13,7 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    document.title = `AdminPro - Login`;
   }
   
   login(){
