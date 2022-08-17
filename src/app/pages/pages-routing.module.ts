@@ -27,7 +27,7 @@ const routes: Routes = [
       {
         path: 'charts',
         component: ChartComponent,
-        data: { title: 'Gráfica #1' }
+        data: { title: 'Gráficas' }
       }
       ,
       {
