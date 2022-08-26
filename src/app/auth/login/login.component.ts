@@ -11,13 +11,15 @@ import { AuthService } from '../../services/auth.service';
 })
 export class LoginComponent implements OnInit {
 
+  submitted = false;
+  email = localStorage.getItem('email');
   public loginForm = this.fb.group({
-    email: ['dlesmes@nauta.cu', [Validators.required, Validators.email]],
-    password: ['123456', [Validators.required]],
+    email: [this.email || '', [Validators.required, Validators.email]],
+    password: ['', [Validators.required]],
     remember_me: [false, []],
   });
 
-  submitted = false;
+
 
   constructor(
     private fb: FormBuilder,
@@ -27,6 +29,13 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     document.title = `AdminPro - Login`;
+    length = this.email?.length || 0;
+    if (length > 0) {
+      this.loginForm.reset({
+        email: this.email || '',       
+        remember_me: true
+      });
+    }
   }
 
   login() {
@@ -38,7 +47,8 @@ export class LoginComponent implements OnInit {
       this.auth.login(email!, password!).subscribe({
         next: (res) => {
           if (res.ok === true) {
-            this.router.navigateByUrl('/');
+            this.router.navigateByUrl('/dashboard');
+            this.saveLocalStorage(res.token!);
           }
         },
         error: (err) => {
@@ -47,14 +57,29 @@ export class LoginComponent implements OnInit {
       });
     }
   }
+
   hasErrors() {
     if (this.loginForm.invalid) {
       return true;
     }
     return false;
   }
+
   showSweetAlert() {
     sweetalert.fire('Error', 'Credenciales incorrectas', 'error');
   }
 
+  saveLocalStorage(token: string) {
+    localStorage.setItem('token', token);
+    this.rememberMe();
+  }
+
+  rememberMe() {
+    const email = this.loginForm.get('email')?.value;
+    if (this.loginForm.get('remember_me')?.value) {
+      localStorage.setItem('email', email!);
+    } else {
+      localStorage.removeItem('email');
+    }
+  }
 }
