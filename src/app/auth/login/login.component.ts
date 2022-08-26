@@ -47,11 +47,14 @@ export class LoginComponent implements OnInit {
       });
     }
   }
-  hasErrors(){
-    return true;
+  hasErrors() {
+    if (this.loginForm.invalid) {
+      return true;
+    }
+    return false;
   }
-  showSweetAlert(){
-
+  showSweetAlert() {
+    sweetalert.fire('Error', 'Credenciales incorrectas', 'error');
   }
 
 }
