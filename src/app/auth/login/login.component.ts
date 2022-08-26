@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -8,7 +9,14 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
+  public myForm = this.fb.group({
+    email: ['dlesmes@nauta.cu', [Validators.required, Validators.email]],
+    password: ['123456', [Validators.required]],
+    remember_me: [false, []],
+  });
+
   constructor(
+    private fb: FormBuilder,
     private router: Router
   ) { }
 
