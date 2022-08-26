@@ -15,7 +15,9 @@ export class UserService {
     private http: HttpClient
   ) { }
 
-  register(user:User) {
-    return this.http.post<UserResponse>(`${this.base_url}/users`,user);
+  register(user: User) {
+    const url = `${this.base_url}/users`;
+    return this.http.post<UserResponse>(url, user);
   }
+  
 }
