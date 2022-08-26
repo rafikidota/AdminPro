@@ -42,7 +42,7 @@ export class RegisterComponent implements OnInit {
       this.us.register(user).subscribe({
         next: (res) => {
           if (res.ok === true) {
-            this.router.navigateByUrl('/dashboard');
+            this.router.navigateByUrl('/');
           }
         },
         error: (err) => {
