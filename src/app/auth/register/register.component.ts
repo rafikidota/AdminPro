@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import sweetalert from 'sweetalert2';
 import { UserService } from '../../services/user.service';
 import { User } from '../../models/user.models';
-import { RegisterForm } from '../../interfaces/register-form.interface';
 
 
 @Component({
@@ -14,7 +13,7 @@ import { RegisterForm } from '../../interfaces/register-form.interface';
 })
 export class RegisterComponent implements OnInit {
 
-  public myForm = this.fb.group({
+  public registerForm = this.fb.group({
     name: ['', [Validators.required]],
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(6)]],
@@ -38,7 +37,7 @@ export class RegisterComponent implements OnInit {
     if (this.hasErrors()) {
       this.showSweetAlert();
     } else {
-      const { name, email, password } = this.myForm.value;
+      const { name, email, password } = this.registerForm.value;
       const user = new User(name!, email!, password!);
       this.us.register(user).subscribe({
         next: (res) => {
@@ -54,7 +53,7 @@ export class RegisterComponent implements OnInit {
   }
 
   validate(fcn: string) {
-    return (this.myForm.get(fcn)?.invalid && this.submitted) ? true : false;
+    return (this.registerForm.get(fcn)?.invalid && this.submitted) ? true : false;
   }
 
   hasErrors() {
@@ -106,8 +105,8 @@ export class RegisterComponent implements OnInit {
   }
 
   comparePasswords(password: string, confirm: string) {
-    const passwordControl = this.myForm.get(password);
-    const confirmControl = this.myForm.get(confirm);
+    const passwordControl = this.registerForm.get(password);
+    const confirmControl = this.registerForm.get(confirm);
     if (passwordControl?.value === confirmControl?.value) {
       confirmControl?.setErrors(null);
     } else {
