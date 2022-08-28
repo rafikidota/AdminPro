@@ -1,11 +1,13 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { map, catchError, of } from 'rxjs';
+
 import { environment } from 'src/environments/environment';
 import { UserResponse } from '../interfaces/user-response.interface';
 import { User } from '../models/user.models';
 
+declare const google: any;
 @Injectable({
   providedIn: 'root'
 })
@@ -16,8 +18,13 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private ngZone: NgZone
   ) { }
+
+  get user() {
+    return { ...this._user };
+  }
 
   login(email: string, password: string) {
     const url = `${this.base_url}/auth`;
@@ -25,9 +32,16 @@ export class AuthService {
     return this.http.post<UserResponse>(url, body);
   }
 
-  logout(){
+  logout() {
+    const email = localStorage.getItem('email');
     localStorage.removeItem('token');
-    this.router.navigateByUrl('/login');
+    localStorage.removeItem('email');
+    google.accounts.id.disableAutoSelect();
+    google.accounts.id.revoke(email, (done: any) => {
+      this.ngZone.run(() => {
+        this.router.navigateByUrl('/login');
+      });      
+    });
   }
 
   validateToken() {
@@ -49,14 +63,13 @@ export class AuthService {
   }
 
   //Google
-  signInWithGoogle() {
+  signInWithGoogle(id_token: string) {
     const url = `${this.base_url}/auth/google`;
-    const id_token = localStorage.getItem('id_token');
     const body = { id_token };
     return this.http.post<UserResponse>(url, body).pipe(
       map(res => {
         this.loadUser(res);
-        localStorage.removeItem('id_token');
+        localStorage.setItem('email', res.user?.email!);
         return res.ok;
       }),
       catchError(err => of(false))
