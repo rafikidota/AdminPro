@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { map, catchError, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { UserResponse } from '../interfaces/user-response.interface';
@@ -14,7 +15,8 @@ export class AuthService {
   _user!: User;
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private router: Router
   ) { }
 
   login(email: string, password: string) {
@@ -25,6 +27,7 @@ export class AuthService {
 
   logout(){
     localStorage.removeItem('token');
+    this.router.navigateByUrl('/login');
   }
 
   validateToken() {
