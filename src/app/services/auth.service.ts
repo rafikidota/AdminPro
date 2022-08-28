@@ -23,6 +23,10 @@ export class AuthService {
     return this.http.post<UserResponse>(url, body);
   }
 
+  logout(){
+    localStorage.removeItem('token');
+  }
+
   validateToken() {
     const url = `${this.base_url}/auth/token`;
     const token = localStorage.getItem('token');
