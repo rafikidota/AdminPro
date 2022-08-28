@@ -8,11 +8,14 @@ import { PagesComponent } from './pages.component';
 import { ProgressComponent } from './progress/progress.component';
 import { PromiseComponent } from './promise/promise.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
+import { AuthGuard } from '../guards/auth.guard';
 
 const routes: Routes = [
   {
     path: 'dashboard',
     component: PagesComponent,
+    canActivate: [AuthGuard],
+    canLoad: [AuthGuard],
     children: [
       {
         path: '',
@@ -31,19 +34,19 @@ const routes: Routes = [
       }
       ,
       {
-        path: 'account-settings', 
-        component: AccountSettingsComponent, 
+        path: 'account-settings',
+        component: AccountSettingsComponent,
         data: { title: 'Ajustes de cuenta' }
       },
       {
-        path: 'promise', 
-        component: 
-        PromiseComponent, 
+        path: 'promise',
+        component:
+          PromiseComponent,
         data: { title: 'Promesas' }
       },
       {
-        path: 'rxjs', 
-        component: RxjsComponent, 
+        path: 'rxjs',
+        component: RxjsComponent,
         data: { title: 'RxJs' }
       },
     ]
