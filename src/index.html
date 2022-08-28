@@ -3,6 +3,9 @@
 
 <head>
   <meta charset="utf-8">
+  <meta name="google-signin-scope" content="profile email">
+  <meta name="google-signin-client_id"
+    content="865147631621-a2qsuf3v75ojd6vp1e3rq11fnmcc2k4p.apps.googleusercontent.com">
   <title>AdminPro</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -54,6 +57,29 @@
   <script src="./assets/plugins/sparkline/jquery.sparkline.min.js"></script>
   <!--Custom JavaScript -->
   <script src="./assets/js/custom.js"></script>
+  <!-- Google Sign In -->
+  <script src="https://accounts.google.com/gsi/client"></script>
+  <script>
+    function handleCredentialResponse(response) {       
+      const body = { id_token: response.credential };
+      fetch('http://localhost:4000/api/auth/google',{
+        method:'POST',
+        headers:{
+          'Content-Type':'application/json'
+        },
+        body:JSON.stringify(body)
+      })
+            .then(resp => resp.json())
+            .then(resp => {
+              console.log(resp);
+              const token = resp.token
+              localStorage.setItem('token',token);
+              location.reload();
+            })
+            .catch(console.warn);
+    }
+  </script>
+
 </body>
 
 </html>

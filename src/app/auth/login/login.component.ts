@@ -29,8 +29,8 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     document.title = `AdminPro - Login`;
-    length = this.email?.length || 0;
-    if (length > 0) {
+    const email_length = this.email?.length || 0;
+    if (email_length! > 0) {
       this.loginForm.reset({
         email: this.email || '',       
         remember_me: true
@@ -81,5 +81,9 @@ export class LoginComponent implements OnInit {
     } else {
       localStorage.removeItem('email');
     }
+  }
+  google(){
+    console.log('angular login component');
+    console.log(localStorage.getItem('id_token'));
   }
 }
