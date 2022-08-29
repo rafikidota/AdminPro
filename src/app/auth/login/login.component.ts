@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
     const email_length = this.email?.length || 0;
     if (email_length! > 0) {
       this.loginForm.reset({
-        email: this.email || '',       
+        email: this.email || '',
         remember_me: true
       });
     }
@@ -52,7 +52,11 @@ export class LoginComponent implements OnInit {
           }
         },
         error: (err) => {
-          sweetalert.fire('Error', err.error.msg, 'error');
+          if (err.status === 0) {
+            sweetalert.fire('Error', 'No se ha podido establecer una conexión con el servidor', 'error');
+          } else {
+            sweetalert.fire('Error', err.error.msg, 'error');
+          }
         }
       });
     }
@@ -82,7 +86,7 @@ export class LoginComponent implements OnInit {
       localStorage.removeItem('email');
     }
   }
-  google(){
+  google() {
     console.log('angular login component');
     console.log(localStorage.getItem('id_token'));
   }

@@ -46,7 +46,11 @@ export class RegisterComponent implements OnInit {
           }
         },
         error: (err) => {
-          sweetalert.fire('Error', err.error.msg, 'error');
+          if (err.status === 0) {
+            sweetalert.fire('Error', 'No se ha podido establecer una conexión con el servidor', 'error');
+          } else {
+            sweetalert.fire('Error', err.error.msg, 'error');
+          }
         }
       });
     }
