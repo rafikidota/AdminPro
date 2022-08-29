@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Menu } from 'src/app/interfaces/menu.interface';
+import { User } from 'src/app/models/user.models';
 import { AuthService } from 'src/app/services/auth.service';
 import { SidebarService } from '../../services/sidebar.service';
 
@@ -9,17 +10,19 @@ import { SidebarService } from '../../services/sidebar.service';
 })
 export class SidebarComponent implements OnInit {
 
-  menuItems: Menu[] = [];
+  public menuItems: Menu[] = [];
+  public user: User;
   constructor(
     private as: AuthService,
     private ss: SidebarService
   ) {
     this.menuItems = ss.menuItems;
+    this.user = as.user;
   }
 
   ngOnInit(): void { }
 
-  logout(){
+  logout() {
     this.as.logout();
   }
 }
