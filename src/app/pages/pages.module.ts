@@ -13,6 +13,7 @@ import { ProgressComponent } from './progress/progress.component';
 import { PromiseComponent } from './promise/promise.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
 import { PagesComponent } from './pages.component';
+import { ProfileComponent } from './profile/profile.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { PagesComponent } from './pages.component';
     PagesComponent,
     ProgressComponent,
     PromiseComponent,
-    RxjsComponent
+    RxjsComponent,
+    ProfileComponent
   ],
   exports:[
     AccountSettingsComponent,
