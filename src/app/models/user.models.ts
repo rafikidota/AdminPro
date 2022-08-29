@@ -12,10 +12,13 @@ export class User {
     ) { }
 
     get imageURL() {
-        if (this.img) {
-            const url = `${base_url}/uploads/users/${this.img}`;
-            return url;
+        if (this.img?.includes('https' || 'http')) {
+            return this.img;
         }
-        return `${base_url}/uploads/users/no-image`;
+        if (this.img) {
+            return `${base_url}/upload/users/${this.img}`;
+        } else {
+            return `${base_url}/upload/users/no-image`;
+        }
     }
 }
