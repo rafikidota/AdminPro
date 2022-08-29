@@ -15,17 +15,13 @@ declare const google: any;
 export class AuthService {
 
   base_url = environment.base_url;
-  _user!: User;
+  user = new User('Random User', 'random_user@adminpro.com');
 
   constructor(
     private http: HttpClient,
     private router: Router,
     private ngZone: NgZone
   ) { }
-
-  get user() {
-    return { ...this._user };
-  }
 
   login(email: string, password: string) {
     const url = `${this.base_url}/auth`;
@@ -37,16 +33,21 @@ export class AuthService {
     const email = localStorage.getItem('email');
     localStorage.removeItem('token');
     localStorage.removeItem('email');
-    google.accounts.id.disableAutoSelect();
-    google.accounts.id.revoke(email, (done: any) => {
-      this.ngZone.run(() => {
-        if (done.successful) {
-          this.router.navigateByUrl('/login');
-        } else {
-          sweetalert.fire('Error', done, 'error');
-        }
+    if (this.user.google) {
+      google.accounts.id.disableAutoSelect();
+      google.accounts.id.revoke(email, (done: any) => {
+        this.ngZone.run(() => {
+          if (done.successful) {
+            this.router.navigateByUrl('/login');
+          } else {
+            console.log(done);
+            sweetalert.fire('Error', 'Ha ocurrido un error mientras se cerraba su sesión de Google', 'error');
+          }
+        });
       });
-    });
+    } else {
+      this.router.navigateByUrl('/login');
+    }
   }
 
   validateToken() {
@@ -65,7 +66,7 @@ export class AuthService {
   loadUser(res: UserResponse) {
     localStorage.setItem('token', res.token!);
     const { name, email, id, role, google, img } = res.user!;
-    this._user = new User(name, email, id, role, google, img);
+    this.user = new User(name, email, id, role, google, img);
   }
 
   //Google
