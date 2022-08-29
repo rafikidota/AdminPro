@@ -19,11 +19,11 @@ const routes: Routes = [
     canLoad: [AuthGuard],
     children: [
       { path: '', component: DashboardComponent, data: { title: 'Dashboard' } },
-      { path: 'account-settings', component: AccountSettingsComponent, data: { title: 'Ajustes de cuenta' } },
-      { path: 'charts', component: ChartComponent, data: { title: 'Gráficas' } },
-      { path: 'profile', component: ProfileComponent, data: { title: 'Perfil' } },
-      { path: 'progress', component: ProgressComponent, data: { title: 'ProgressBar' } },
-      { path: 'promise', component: PromiseComponent, data: { title: 'Promesas' } },
+      { path: 'account-settings', component: AccountSettingsComponent, data: { title: 'AccountSettings' } },
+      { path: 'charts', component: ChartComponent, data: { title: 'Charts' } },
+      { path: 'profile', component: ProfileComponent, data: { title: 'My profile' } },
+      { path: 'progress', component: ProgressComponent, data: { title: 'Progress Bar' } },
+      { path: 'promise', component: PromiseComponent, data: { title: 'Promises' } },
       { path: 'rxjs', component: RxjsComponent, data: { title: 'RxJs' } },
     ]
   },

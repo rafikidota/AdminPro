@@ -41,7 +41,7 @@ export class AuthService {
             this.router.navigateByUrl('/login');
           } else {
             console.log(done);
-            sweetalert.fire('Error', 'Ha ocurrido un error mientras se cerraba su sesión de Google', 'error');
+            sweetalert.fire('Error', 'Ha ocurrido un error mientras se cerraba su sesión', 'error');
           }
         });
       });
