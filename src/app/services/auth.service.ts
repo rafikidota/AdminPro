@@ -6,6 +6,7 @@ import { map, catchError, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { UserResponse } from '../interfaces/user-response.interface';
 import { User } from '../models/user.models';
+import sweetalert from 'sweetalert2';
 
 declare const google: any;
 @Injectable({
@@ -39,8 +40,12 @@ export class AuthService {
     google.accounts.id.disableAutoSelect();
     google.accounts.id.revoke(email, (done: any) => {
       this.ngZone.run(() => {
-        this.router.navigateByUrl('/login');
-      });      
+        if (done.successful) {
+          this.router.navigateByUrl('/login');
+        } else {
+          sweetalert.fire('Error', done, 'error');
+        }
+      });
     });
   }
 
