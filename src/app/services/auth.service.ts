@@ -64,7 +64,8 @@ export class AuthService {
 
   loadUser(res: UserResponse) {
     localStorage.setItem('token', res.token!);
-    this._user = res.user!;
+    const { name, email, id, role, google, img } = res.user!;
+    this._user = new User(name, email, id, role, google, img);
   }
 
   //Google
