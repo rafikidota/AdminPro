@@ -31,13 +31,13 @@ export class AuthService {
 
   logout() {
     const email = localStorage.getItem('email');
-    localStorage.removeItem('token');
-    localStorage.removeItem('email');
     if (this.user.google) {
       google.accounts.id.disableAutoSelect();
       google.accounts.id.revoke(email, (done: any) => {
         this.ngZone.run(() => {
           if (done.successful) {
+            localStorage.removeItem('token');
+            localStorage.removeItem('email');
             this.router.navigateByUrl('/login');
           } else {
             console.log(done);
@@ -46,6 +46,8 @@ export class AuthService {
         });
       });
     } else {
+      localStorage.removeItem('token');
+    localStorage.removeItem('email');
       this.router.navigateByUrl('/login');
     }
   }
