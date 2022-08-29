@@ -23,6 +23,6 @@ export class UserService {
     const url = `${this.base_url}/users`;
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set('token', token || '');
-    return this.http.put<UserResponse>(url, user, { headers, });
+    return this.http.put<UserResponse>(url, user, { headers });
   }
 }
