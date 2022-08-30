@@ -14,6 +14,9 @@ import { PromiseComponent } from './promise/promise.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
 import { PagesComponent } from './pages.component';
 import { ProfileComponent } from './profile/profile.component';
+import { UsersComponent } from './managements/users/users.component';
+import { HospitalsComponent } from './managements/hospitals/hospitals.component';
+import { DoctorsComponent } from './managements/doctors/doctors.component';
 
 
 @NgModule({
@@ -25,7 +28,10 @@ import { ProfileComponent } from './profile/profile.component';
     ProgressComponent,
     PromiseComponent,
     RxjsComponent,
-    ProfileComponent
+    ProfileComponent,
+    UsersComponent,
+    HospitalsComponent,
+    DoctorsComponent
   ],
   exports:[
     AccountSettingsComponent,
