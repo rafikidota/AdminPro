@@ -38,7 +38,7 @@ export class AuthService {
           if (done.successful) {
             localStorage.removeItem('token');
             localStorage.removeItem('email');
-            this.router.navigateByUrl('/login');
+            this.router.navigateByUrl('/login');            
           } else {
             console.log(done);
             sweetalert.fire('Error', 'Ha ocurrido un error mientras se cerraba su sesión', 'error');
