@@ -10,6 +10,9 @@ import { ProfileComponent } from './profile/profile.component';
 import { ProgressComponent } from './progress/progress.component';
 import { PromiseComponent } from './promise/promise.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
+import { UsersComponent } from './managements/users/users.component';
+import { HospitalsComponent } from './managements/hospitals/hospitals.component';
+import { DoctorsComponent } from './managements/doctors/doctors.component';
 
 const routes: Routes = [
   {
@@ -25,6 +28,9 @@ const routes: Routes = [
       { path: 'progress', component: ProgressComponent, data: { title: 'Progress Bar' } },
       { path: 'promise', component: PromiseComponent, data: { title: 'Promises' } },
       { path: 'rxjs', component: RxjsComponent, data: { title: 'RxJs' } },
+      { path: 'users', component: UsersComponent, data: { title: 'Users' } },
+      { path: 'hospitals', component: HospitalsComponent, data: { title: 'Hospitals' } },
+      { path: 'doctors', component: DoctorsComponent, data: { title: 'Doctors' } },
     ]
   },
 ];
