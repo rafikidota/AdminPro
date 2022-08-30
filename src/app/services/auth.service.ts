@@ -38,6 +38,7 @@ export class AuthService {
           if (done.successful) {
             localStorage.removeItem('token');
             localStorage.removeItem('email');
+            localStorage.setItem('logout','logout');
             this.router.navigateByUrl('/login');            
           } else {
             console.log(done);

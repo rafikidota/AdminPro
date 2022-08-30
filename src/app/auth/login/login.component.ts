@@ -36,6 +36,10 @@ export class LoginComponent implements OnInit {
         remember_me: true
       });
     }
+    if (localStorage.getItem('logout')==='logout') {
+      localStorage.removeItem('logout');
+      location.reload();
+    }
   }
 
   login() {
