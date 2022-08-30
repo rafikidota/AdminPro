@@ -90,8 +90,5 @@ export class LoginComponent implements OnInit {
       localStorage.removeItem('email');
     }
   }
-  google() {
-    console.log('angular login component');
-    console.log(localStorage.getItem('id_token'));
-  }
+ 
 }
