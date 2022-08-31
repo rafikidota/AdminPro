@@ -44,7 +44,9 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let user of users">
-                                <td>xd</td>
+                                <td class="text-center">
+                                    <img class="avatar" [src]="user.imageURL" alt="user">
+                                </td>
                                 <td>{{user.email}}</td>
                                 <td>{{user.name}}</td>
                                 <td>{{user.role}}</td>
