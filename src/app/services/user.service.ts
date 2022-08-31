@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { map } from 'rxjs';
+
 import { environment } from 'src/environments/environment';
 import { UserResponse } from '../interfaces/user-response.interface';
 import { User } from '../models/user.models';
@@ -30,6 +32,13 @@ export class UserService {
     const url = `${this.base_url}/users?skip=${skip}&limit=${limit}`;
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set('token', token || '');
-    return this.http.get<UsersResponse>(url, { headers });
+    return this.http.get<UsersResponse>(url, { headers })
+                    .pipe(
+                      map( res =>{
+                        const users = res.users?.map( user => new User(user.name,user.email,user.id,user.role,user.google,user.img,''));
+                        res.users = users;
+                        return res;
+                      })
+                    );
   }
 }
