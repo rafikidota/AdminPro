@@ -17,6 +17,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { UsersComponent } from './managements/users/users.component';
 import { HospitalsComponent } from './managements/hospitals/hospitals.component';
 import { DoctorsComponent } from './managements/doctors/doctors.component';
+import { TableComponent } from './managements/table/table.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { DoctorsComponent } from './managements/doctors/doctors.component';
     ProfileComponent,
     UsersComponent,
     HospitalsComponent,
-    DoctorsComponent
+    DoctorsComponent,
+    TableComponent
   ],
   exports:[
     AccountSettingsComponent,
