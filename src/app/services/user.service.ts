@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { UserResponse } from '../interfaces/user-response.interface';
 import { User } from '../models/user.models';
+import { UsersResponse } from '../interfaces/get-users-response.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -24,5 +25,11 @@ export class UserService {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set('token', token || '');
     return this.http.put<UserResponse>(url, user, { headers });
+  }
+  getUsers(skip: number = 0,limit: number = 0) {
+    const url = `${this.base_url}/users?skip=${skip}&limit=${limit}`;
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('token', token || '');
+    return this.http.get<UsersResponse>(url, { headers });
   }
 }
