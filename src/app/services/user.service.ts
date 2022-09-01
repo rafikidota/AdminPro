@@ -4,7 +4,7 @@ import { map } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
 import { UserResponse } from '../interfaces/user-response.interface';
-import { User } from '../models/user.models';
+import { User } from '../models/user.model';
 import { UsersResponse } from '../interfaces/get-users-response.interface';
 
 @Injectable({

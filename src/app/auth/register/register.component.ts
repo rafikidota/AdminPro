@@ -3,7 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import sweetalert from 'sweetalert2';
 import { UserService } from '../../services/user.service';
-import { User } from '../../models/user.models';
+import { User } from '../../models/user.model';
 
 
 @Component({

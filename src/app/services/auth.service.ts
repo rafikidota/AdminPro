@@ -5,7 +5,7 @@ import { map, catchError, of } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
 import { UserResponse } from '../interfaces/user-response.interface';
-import { User } from '../models/user.models';
+import { User } from '../models/user.model';
 import sweetalert from 'sweetalert2';
 
 declare const google: any;
