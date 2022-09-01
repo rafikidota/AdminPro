@@ -35,7 +35,7 @@ import { TableComponent } from './managements/table/table.component';
     DoctorsComponent,
     TableComponent
   ],
-  exports:[
+  exports: [
     AccountSettingsComponent,
     ChartComponent,
     DashboardComponent,
