@@ -28,17 +28,24 @@ export class UserService {
     const headers = new HttpHeaders().set('token', token || '');
     return this.http.put<UserResponse>(url, user, { headers });
   }
-  getUsers(skip: number = 0,limit: number = 0) {
+  getUsers(skip: number = 0, limit: number = 0) {
     const url = `${this.base_url}/users?skip=${skip}&limit=${limit}`;
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set('token', token || '');
     return this.http.get<UsersResponse>(url, { headers })
-                    .pipe(
-                      map( res =>{
-                        const users = res.users?.map( user => new User(user.name,user.email,user.id,user.role,user.google,user.img,''));
-                        res.users = users;
-                        return res;
-                      })
-                    );
+      .pipe(
+        map(res => {
+          const users = res.users?.map(user => new User(user.name, user.email, user.id, user.role, user.google, user.img, ''));
+          res.users = users;
+          return res;
+        })
+      );
+  }
+
+  delete(user: User) {
+    const url = `${this.base_url}/users/${user.id}`;
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('token', token || '');
+    return this.http.delete<UserResponse>(url, { headers });
   }
 }

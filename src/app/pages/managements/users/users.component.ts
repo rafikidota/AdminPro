@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import sweetalert from 'sweetalert2';
+
 import { User } from 'src/app/models/user.model';
 import { UserService } from '../../../services/user.service';
 import { SearchService } from '../../../services/search.service';
-
+import { AuthService } from '../../../services/auth.service';
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html'
@@ -20,7 +22,8 @@ export class UsersComponent implements OnInit {
 
   constructor(
     private us: UserService,
-    private ss: SearchService
+    private ss: SearchService,
+    private as: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -69,12 +72,12 @@ export class UsersComponent implements OnInit {
     }
   }
 
-  search(query:string) {
-    if(!query){
+  search(query: string) {
+    if (!query) {
       this.searching = false;
       return this.getUsers();
     }
-    this.ss.searchByCollection('users',query).subscribe( res => {
+    this.ss.searchByCollection('users', query).subscribe(res => {
       if (res.ok) {
         this.users = res.data!;
         this.total = res.data!.length;
@@ -84,4 +87,43 @@ export class UsersComponent implements OnInit {
     });
   }
 
+  delete(user: User) {
+
+    if (user.id === this.as.user.id) {
+      return sweetalert.fire('Error', `You can't delete yourself`, 'error');
+    }
+
+    return sweetalert.fire({
+      title: 'Are you sure?',
+      text: `Do you really wanna delete ${user.name}`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.us.delete(user).subscribe({
+          next: (res) => {
+            if (res.ok) {
+              sweetalert.fire(
+                'Deleted!',
+                `The user ${user.name} has been deleted successfully.`,
+                'success'
+              )
+              this.getUsers();
+            }
+          },
+          error: (err) => {
+            if (err.status === 0) {
+              sweetalert.fire('Error', 'No se ha podido establecer una conexión con el servidor', 'error');
+            } else {
+              sweetalert.fire('Error', err.error.msg, 'error');
+            }
+          }
+        });
+      }
+    })
+
+  }
 }
