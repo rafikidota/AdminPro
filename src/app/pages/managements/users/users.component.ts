@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user.model';
 import { UserService } from '../../../services/user.service';
+import { SearchService } from '../../../services/search.service';
 
 @Component({
   selector: 'app-users',
@@ -15,9 +16,11 @@ export class UsersComponent implements OnInit {
   public currentPage: number = 1;
   public totalPage: number = 0;
   public loaded: boolean = false;
+  public searching: boolean = false;
 
   constructor(
-    private us: UserService
+    private us: UserService,
+    private ss: SearchService
   ) { }
 
   ngOnInit(): void {
@@ -64,6 +67,21 @@ export class UsersComponent implements OnInit {
     if (remainder !== 0) {
       this.totalPage++;
     }
+  }
+
+  search(query:string) {
+    if(!query){
+      this.searching = false;
+      return this.getUsers();
+    }
+    this.ss.searchByCollection('users',query).subscribe( res => {
+      if (res.ok) {
+        this.users = res.data!;
+        this.total = res.data!.length;
+        this.totalPage = 1;
+        this.searching = true;
+      }
+    });
   }
 
 }

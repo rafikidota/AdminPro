@@ -4,7 +4,9 @@
             <div class="card-body">
                 <input type="text"
                        class="form-control"
-                       placeholder="Search user...">
+                       (keyup)="search(search_input.value)"
+                       #search_input
+                       placeholder="Search user..."/>
             </div>
         </div>
     </div>
@@ -62,7 +64,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="input-group">
+                <div class="input-group" *ngIf="!searching">
                     <span class="input-group-btn">
                         <button (click)="changePagination(-5,-1)"
                                 class="btn btn-secondary"
