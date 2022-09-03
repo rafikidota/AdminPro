@@ -126,4 +126,20 @@ export class UsersComponent implements OnInit {
     })
 
   }
+
+  changeRole(user: User) {
+    this.us.update(user).subscribe({
+      next: (res) => {
+       
+      },
+      error: (err) => {
+        if (err.status === 0) {
+          sweetalert.fire('Error', 'No se ha podido establecer una conexión con el servidor', 'error');
+        } else {
+          sweetalert.fire('Error', err.error.msg, 'error');
+        }
+      }
+    });
+  }
+
 }

@@ -2,11 +2,8 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <input type="text"
-                       class="form-control"
-                       (keyup)="search(search_input.value)"
-                       #search_input
-                       placeholder="Search user..."/>
+                <input type="text" class="form-control" (keyup)="search(search_input.value)" #search_input
+                    placeholder="Search user..." />
             </div>
         </div>
     </div>
@@ -51,22 +48,25 @@
                                 </td>
                                 <td>{{user.email}}</td>
                                 <td>{{user.name}}</td>
-                                <td>{{user.role}}</td>
+                                <td>
+                                    <select class="form-control w140"
+                                            [(ngModel)]="user.role"
+                                            (change)="changeRole(user)">
+                                        <option value="ADMIN_ROLE">Admin</option>
+                                        <option value="USER_ROLE">User</option>
+                                    </select>
+                                </td>
                                 <td>
                                     <span *ngIf="user.google" class="label label-danger">Google</span>
                                     <span *ngIf="!user.google" class="label label-info">Email</span>
                                 </td>
                                 <td class="text-nowrap text-center">
-                                    <a data-toggle="tooltip" 
-                                       data-original-title="Edit"
-                                       class="cursor"> 
+                                    <a data-toggle="tooltip" data-original-title="Edit" class="cursor">
                                         <i class="fa fa-pencil text-inverse m-r-10"></i>
-                                     </a>
-                                    <a data-toggle="tooltip" 
-                                       data-original-title="Delete"
-                                       class="cursor"
-                                       (click)="delete(user)"> 
-                                        <i class="fa fa-close text-danger"></i> 
+                                    </a>
+                                    <a data-toggle="tooltip" data-original-title="Delete" class="cursor"
+                                        (click)="delete(user)">
+                                        <i class="fa fa-close text-danger"></i>
                                     </a>
                                 </td>
                             </tr>
@@ -75,17 +75,13 @@
                 </div>
                 <div class="input-group" *ngIf="!searching">
                     <span class="input-group-btn">
-                        <button (click)="changePagination(-5,-1)"
-                                class="btn btn-secondary"
-                                type="button">
+                        <button (click)="changePagination(-5,-1)" class="btn btn-secondary" type="button">
                             Back
                         </button>
                     </span>
                     <span class="spacer"></span>
                     <span class="input-group-btn">
-                        <button (click)="changePagination(5,1)"
-                                class="btn btn-secondary"
-                                type="button">
+                        <button (click)="changePagination(5,1)" class="btn btn-secondary" type="button">
                             Next
                         </button>
                     </span>

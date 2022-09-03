@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { ComponentsModule } from '../components/components.module';
 import { PagesRoutingModule } from './pages-routing.module';
@@ -47,6 +47,7 @@ import { TableComponent } from './managements/table/table.component';
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    FormsModule,
     ComponentsModule,
     PagesRoutingModule,
     SharedModule
