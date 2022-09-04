@@ -1,1 +1,51 @@
-<p>image-modal works!</p>
+<div class=".wp-image-modal animated fadeIn fast"
+    [class.hide]="ims.hideModal">
+
+    <div class="modal fade show" 
+        id="exampleModal" 
+        tabindex="-1" 
+        role="dialog" 
+        aria-labelledby="exampleModalLabel1" 
+        style="display: block;">
+
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel1">Cargar imagen</h4>
+                <button type="button" 
+                        class="close" 
+                        data-dismiss="modal" 
+                        aria-label="Close"
+                        (click)="closeModal()">
+                        <span aria-hidden="true">x</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                
+                <h3>Seleccione una imagen</h3>
+
+                <div class="text-center">
+                    <img *ngIf="!imageTemp" [src]="ims.img" class="img-avatar">
+                    <img *ngIf="imageTemp" [src]="imageTemp" class="img-avatar">
+                </div>
+
+                <input type="file"
+                        (change)="changeImage($event)">
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" 
+                        class="btn btn-default" 
+                        data-dismiss="modal"
+                        (click)="closeModal()">
+                    Cancelar
+                </button>
+                <button type="button" 
+                        class="btn btn-primary"
+                        (click)="uploadImage()">Actualizar foto</button>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>

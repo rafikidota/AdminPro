@@ -1,34 +1,52 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import sweetalert from 'sweetalert2';
 
 import { User } from 'src/app/models/user.model';
 import { UserService } from '../../../services/user.service';
 import { SearchService } from '../../../services/search.service';
 import { AuthService } from '../../../services/auth.service';
+import { ImageModalService } from '../../../services/image-modal.service';
+import { delay, Subscription } from 'rxjs';
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html'
 })
-export class UsersComponent implements OnInit {
+export class UsersComponent implements OnInit, OnDestroy {
 
   public total: number = 0;
   public users: User[] = [];
-  public skip: number = 0;
-  public limit: number = 5;
-  public currentPage: number = 1;
-  public totalPage: number = 0;
+
   public loaded: boolean = false;
   public searching: boolean = false;
+
+  public skip: number = 0;
+  public limit: number = 5;
+
+  public currentPage: number = 1;
+  public totalPage: number = 0;
+
+  public imageSubs!: Subscription;
+
 
   constructor(
     private us: UserService,
     private ss: SearchService,
-    private as: AuthService
+    private as: AuthService,
+    private ims: ImageModalService
   ) { }
 
   ngOnInit(): void {
     this.getUsers();
+    this.imageSubs = this.ims.newImage
+      .pipe(
+        delay(100)
+      ).subscribe(img => this.getUsers());
   }
+
+  ngOnDestroy(): void {
+    this.imageSubs.unsubscribe();
+  }
+
 
   getUsers() {
     this.loaded = false;
@@ -130,7 +148,7 @@ export class UsersComponent implements OnInit {
   changeRole(user: User) {
     this.us.update(user).subscribe({
       next: (res) => {
-       
+
       },
       error: (err) => {
         if (err.status === 0) {
@@ -140,6 +158,10 @@ export class UsersComponent implements OnInit {
         }
       }
     });
+  }
+
+  openModal(user: User) {
+    this.ims.openModal('users', user.id!, user.img!);
   }
 
 }
