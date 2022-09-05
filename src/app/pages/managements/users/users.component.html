@@ -79,13 +79,19 @@
                 </div>
                 <div class="input-group" *ngIf="!searching">
                     <span class="input-group-btn">
-                        <button (click)="changePagination(-5,-1)" class="btn btn-secondary" type="button">
+                        <button (click)="changePagination(-5,-1)" 
+                                class="btn btn-secondary"
+                                [disabled]="currentPage===1" 
+                                type="button">
                             Back
                         </button>
                     </span>
                     <span class="spacer"></span>
                     <span class="input-group-btn">
-                        <button (click)="changePagination(5,1)" class="btn btn-secondary" type="button">
+                        <button (click)="changePagination(5,1)" 
+                                class="btn btn-secondary"
+                                [disabled]="currentPage===totalPage " 
+                                type="button">
                             Next
                         </button>
                     </span>

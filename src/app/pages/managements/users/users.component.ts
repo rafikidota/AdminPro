@@ -55,6 +55,9 @@ export class UsersComponent implements OnInit, OnDestroy {
 
   getUsers() {
     this.loaded = false;
+    if(this.totalPage===1){
+      this.skip = 0;
+    }
     this.us.getUsers(this.skip, this.limit).subscribe({
       next: (res) => {
         if (res.ok) {
@@ -79,20 +82,27 @@ export class UsersComponent implements OnInit, OnDestroy {
     else if (this.skip > this.total) {
       this.skip -= value;
     }
+    this.validateCurrentPage();
+    this.getUsers();
+  }
+  
+  validateCurrentPage(){
     if (this.currentPage === 0) {
       this.currentPage = 1;
     } else if (this.currentPage > this.totalPage) {
       this.currentPage = this.totalPage;
     }
-    this.getUsers();
   }
 
   updatePaginationValues() {
-    this.totalPage = ~~(this.total / this.limit);
-    const remainder = this.total / this.limit;
-    if (remainder !== 0) {
+    
+    this.totalPage = Math.trunc(this.total / this.limit);
+    const remainder = this.total % this.limit;
+    if (remainder > 0) {
       this.totalPage++;
     }
+    this.validateCurrentPage();
+    
   }
 
   search(query: string) {
@@ -120,7 +130,9 @@ export class UsersComponent implements OnInit, OnDestroy {
     if (user.id === this.as.user.id) {
       return sweetalert.fire('Error', `You can't delete yourself`, 'error');
     }
-
+    if (this.users.length===1) {
+      this.skip -= 5;
+    }
     return sweetalert.fire({
       title: 'Are you sure?',
       text: `Do you really wanna delete ${user.name}`,
