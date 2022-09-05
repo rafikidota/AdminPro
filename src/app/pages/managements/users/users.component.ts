@@ -7,6 +7,7 @@ import { SearchService } from '../../../services/search.service';
 import { AuthService } from '../../../services/auth.service';
 import { ImageModalService } from '../../../services/image-modal.service';
 import { delay, Subscription } from 'rxjs';
+import { EditUserModalService } from '../../../services/edit-user-modal.service';
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html'
@@ -26,13 +27,15 @@ export class UsersComponent implements OnInit, OnDestroy {
   public totalPage: number = 0;
 
   public imageSubs!: Subscription;
+  public editUserSubs!: Subscription;
 
 
   constructor(
     private us: UserService,
     private ss: SearchService,
     private as: AuthService,
-    private ims: ImageModalService
+    private ims: ImageModalService,
+    public eums: EditUserModalService
   ) { }
 
   ngOnInit(): void {
@@ -40,11 +43,13 @@ export class UsersComponent implements OnInit, OnDestroy {
     this.imageSubs = this.ims.newImage
       .pipe(
         delay(100)
-      ).subscribe(img => this.getUsers());
+      ).subscribe(() => this.getUsers());
+    this.editUserSubs = this.eums.userUpdatedEE.subscribe(()=> this.getUsers());
   }
 
   ngOnDestroy(): void {
     this.imageSubs.unsubscribe();
+    this.editUserSubs.unsubscribe();
   }
 
 
@@ -103,6 +108,11 @@ export class UsersComponent implements OnInit, OnDestroy {
         this.searching = true;
       }
     });
+  }
+
+  update(user: User){
+    this.eums.userEE.emit(user);
+    this.eums.openModal();
   }
 
   delete(user: User) {
