@@ -38,7 +38,7 @@ export class RegisterComponent implements OnInit {
       this.showSweetAlert();
     } else {
       const { name, email, password } = this.registerForm.value;
-      const user = new User(name!, email!, password!);
+      const user = new User(name!, email!,'','USER_ROLE',false,'',password!);
       this.us.register(user).subscribe({
         next: (res) => {
           if (res.ok === true) {
@@ -84,7 +84,7 @@ export class RegisterComponent implements OnInit {
 
   showSweetAlert() {
 
-    let error = '';
+    let error = undefined;
     switch (this.alert) {
       case 'name':
         error = 'El nombre es obligatorio.'
@@ -105,7 +105,9 @@ export class RegisterComponent implements OnInit {
       default:
         break;
     }
-    sweetalert.fire('Error', error, 'error');
+    if (error) {
+      sweetalert.fire('Error', error, 'error');
+    }
   }
 
   comparePasswords(password: string, confirm: string) {
