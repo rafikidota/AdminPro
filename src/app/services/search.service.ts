@@ -42,31 +42,13 @@ export class SearchService {
                     doctor.user.google,
                     doctor.user.img,
                     '');
-                  const hospital_user = new User(
-                    doctor.hospital.user.name,
-                    doctor.hospital.user.email,
-                    doctor.hospital.user.id,
-                    doctor.hospital.user.role,
-                    doctor.hospital.user.google,
-                    doctor.hospital.user.img,
-                    '');
-                  const hospital = new Hospital(doctor.hospital.name, doctor.hospital.img, hospital_user);
+                  const hospital = new Hospital(doctor.hospital.name, doctor.hospital.img, doctor.hospital.user);
                   return new Doctor(doctor.name, doctor.img, user, hospital)
                 });
               res.data = doctors;
               break;
             case 'hospitals':
-              const hospitals = res.data!.map(hospital => {
-                const user = new User(
-                  hospital.user.name,
-                  hospital.user.email,
-                  hospital.user.id,
-                  hospital.user.role,
-                  hospital.user.google,
-                  hospital.user.img,
-                  '');
-                return new Hospital(hospital.name, hospital.email, user)
-              });
+              const hospitals = res.data!.map(hospital => new Hospital(hospital.name, hospital.email, hospital.user));
               res.data = hospitals;
               break;
             case 'users':

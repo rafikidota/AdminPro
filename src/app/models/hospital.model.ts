@@ -1,9 +1,13 @@
-import { User } from './user.model';
-
+interface HospitalUser {
+    _id: string;
+    name: string;
+    img: string;
+}
 export class Hospital {
-    constructor(        
+    constructor(
         public name: string,
-        public img: string,
-        public user: User,
+        public id?: string,
+        public user?: HospitalUser,
+        public img?: string,
     ) { }
 }
