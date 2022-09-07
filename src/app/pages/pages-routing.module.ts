@@ -28,9 +28,9 @@ const routes: Routes = [
       { path: 'progress', component: ProgressComponent, data: { title: 'Progress Bar' } },
       { path: 'promise', component: PromiseComponent, data: { title: 'Promises' } },
       { path: 'rxjs', component: RxjsComponent, data: { title: 'RxJs' } },
-      { path: 'users', component: UsersComponent, data: { title: 'Users' } },
-      { path: 'hospitals', component: HospitalsComponent, data: { title: 'Hospitals' } },
-      { path: 'doctors', component: DoctorsComponent, data: { title: 'Doctors' } },
+      { path: 'users', component: UsersComponent, data: { title: 'Users Managements' } },
+      { path: 'hospitals', component: HospitalsComponent, data: { title: 'Hospitals Managements' } },
+      { path: 'doctors', component: DoctorsComponent, data: { title: 'Doctors Managements' } },
     ]
   },
 ];
