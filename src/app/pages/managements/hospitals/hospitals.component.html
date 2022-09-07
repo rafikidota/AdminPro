@@ -1,1 +1,86 @@
-<p>hospitals works!</p>
+<div class="row animated fadeIn fast">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <input type="text" class="form-control" (keyup)="search(search_input.value)" #search_input
+                    placeholder="Search hospital..." />
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row animated fadeIn fast" *ngIf="!loaded">
+    <div class="col-12">
+        <div class="alert alert-info text-center">
+            <h4 class="alert-heading">Loading...</h4>
+            <i class="fa fa-spin fa-refresh fa-2x"></i>
+            <p class="mb-0">Please, wait a second</p>
+        </div>
+    </div>
+</div>
+
+<div class="row" *ngIf="loaded">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="input-group">
+                    <h4 class="card-title">Hospitals ({{total}})</h4>
+                    <span class="spacer"></span>
+                    <h4 class="card-title">Page {{currentPage}} of {{totalPage}}</h4>
+                </div>
+                <h6 class="card-subtitle">Registered hospitals</h6>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th class="w100">Avatar</th>
+                                <th>Name</th>
+                                <th class="text-nowrap w100">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let hospital of hospitals">
+                                <td class="text-center">
+                                    <img class="avatar cursor" 
+                                         [src]="" 
+                                         alt="hospital"
+                                         (click)="openModal(hospital)">
+                                </td>
+                                <td>{{hospital.name}}</td>
+                                <td class="text-nowrap text-center">
+                                    <a data-toggle="tooltip" data-original-title="Edit" class="cursor"
+                                       (click)="update(hospital)">
+                                        <i class="fa fa-pencil text-inverse m-r-10"></i>
+                                    </a>
+                                    <a data-toggle="tooltip" data-original-title="Delete" class="cursor"
+                                       (click)="delete(hospital)">
+                                        <i class="fa fa-close text-danger"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="input-group" *ngIf="!searching">
+                    <span class="input-group-btn">
+                        <button (click)="changePagination(-5,-1)" 
+                                class="btn btn-secondary"
+                                [disabled]="currentPage===1" 
+                                type="button">
+                            Back
+                        </button>
+                    </span>
+                    <span class="spacer"></span>
+                    <span class="input-group-btn">
+                        <button (click)="changePagination(5,1)" 
+                                class="btn btn-secondary"
+                                [disabled]="currentPage===totalPage " 
+                                type="button">
+                            Next
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
