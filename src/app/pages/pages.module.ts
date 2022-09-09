@@ -18,6 +18,7 @@ import { UsersComponent } from './managements/users/users.component';
 import { HospitalsComponent } from './managements/hospitals/hospitals.component';
 import { DoctorsComponent } from './managements/doctors/doctors.component';
 import { TableComponent } from './managements/table/table.component';
+import { PipesModule } from '../pipes/pipes.module';
 
 
 @NgModule({
@@ -50,7 +51,8 @@ import { TableComponent } from './managements/table/table.component';
     FormsModule,
     ComponentsModule,
     PagesRoutingModule,
-    SharedModule
+    SharedModule,
+    PipesModule
   ]
 })
 export class PagesModule { }
