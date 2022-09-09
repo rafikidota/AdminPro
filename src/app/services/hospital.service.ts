@@ -3,11 +3,8 @@ import { Injectable } from '@angular/core';
 import { map } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { HospitalsResponse } from '../interfaces/get-hospitals.interface';
-import { UsersResponse } from '../interfaces/get-users-response.interface';
 import { HospitalResponse } from '../interfaces/hospital-response.interface';
-import { UserResponse } from '../interfaces/user-response.interface';
 import { Hospital } from '../models/hospital.model';
-import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -32,6 +29,13 @@ export class HospitalService {
           return res;
         })
       );
+  }
+
+  create(hospital: Hospital) {
+    const url = `${this.base_url}/hospitals`;
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('token', token || '');
+    return this.http.post<HospitalResponse>(url, hospital, { headers });
   }
 
   update(hospital: Hospital) {
