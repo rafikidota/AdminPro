@@ -1,4 +1,4 @@
-interface HospitalUser {
+export interface HospitalUser {
     _id: string;
     name: string;
     img: string;
