@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ComponentsModule } from '../components/components.module';
 import { PagesRoutingModule } from './pages-routing.module';
 import { SharedModule } from '../shared/shared.module';
+import { PipesModule } from '../pipes/pipes.module';
 
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { ChartComponent } from './chart/chart.component';
@@ -18,7 +19,6 @@ import { UsersComponent } from './managements/users/users.component';
 import { HospitalsComponent } from './managements/hospitals/hospitals.component';
 import { DoctorsComponent } from './managements/doctors/doctors.component';
 import { TableComponent } from './managements/table/table.component';
-import { PipesModule } from '../pipes/pipes.module';
 
 
 @NgModule({
