@@ -1,16 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { delay, Subscription } from 'rxjs';
 
 import { Hospital } from 'src/app/models/hospital.model';
 import { HospitalService } from 'src/app/services/hospital.service';
 import { ImageModalService } from 'src/app/services/image-modal.service';
 import { SearchService } from 'src/app/services/search.service';
+import Swal from 'sweetalert2';
 import sweetalert from 'sweetalert2';
 
 @Component({
   selector: 'app-hospitals',
   templateUrl: './hospitals.component.html'
 })
-export class HospitalsComponent implements OnInit {
+export class HospitalsComponent implements OnInit, OnDestroy {
 
   public total: number = 0;
   public hospitals: Hospital[] = [];
@@ -24,6 +26,8 @@ export class HospitalsComponent implements OnInit {
   public currentPage: number = 1;
   public totalPage: number = 0;
 
+  public imageSubs!: Subscription;
+
   constructor(
     private hs: HospitalService,
     private ss: SearchService,
@@ -32,11 +36,20 @@ export class HospitalsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getHospitals();
+    this.imageSubs = this.ims.newImage
+      .pipe(
+        delay(100)
+      ).subscribe(() => this.getHospitals());
+  }
+
+  ngOnDestroy(): void {
+    this.imageSubs.unsubscribe();
+    
   }
 
   getHospitals() {
     this.loaded = false;
-    if(this.totalPage===1){
+    if (this.totalPage === 1) {
       this.skip = 0;
     }
     this.hs.getHospitals(this.skip, this.limit).subscribe({
@@ -91,7 +104,7 @@ export class HospitalsComponent implements OnInit {
       this.searching = false;
       return this.getHospitals();
     }
-    this.ss.searchByCollection('users', query).subscribe(res => {
+    this.ss.searchByCollection('hospitals', query).subscribe(res => {
       if (res.ok) {
         this.hospitals = res.data!;
         this.total = res.data!.length;
@@ -101,8 +114,60 @@ export class HospitalsComponent implements OnInit {
     });
   }
 
-  update(hospital: Hospital) {
+  async create() {
+    const { value: name } = await sweetalert.fire<string>({
+      title: 'Create hospital',
+      input: 'text',
+      inputLabel: `Insert a name for the new hospital`,
+      inputValue: '',
+      showCancelButton: true,
 
+    })
+    if (name) {
+      const hospital = new Hospital(name);
+      this.hs.create(hospital).subscribe({
+        next: (res) => {
+          sweetalert.fire(`${res.hospital?.name} created successfully`)
+          this.getHospitals();
+        },
+        error: (err) => {
+          if (err.status === 0) {
+            sweetalert.fire('Error', 'No se ha podido establecer una conexión con el servidor', 'error');
+          } else {
+            sweetalert.fire('Error', err.error.msg, 'error');
+          }
+        }
+      });
+    }
+  }
+
+  async update(hospital: Hospital) {
+
+    const { value: name } = await sweetalert.fire({
+      title: 'Update hospital',
+      input: 'text',
+      inputLabel: `Insert the new name for ${hospital.name}`,
+      inputValue: hospital.name,
+      showCancelButton: true,
+
+    })
+
+    if (name) {
+      hospital.name = name;
+      this.hs.update(hospital).subscribe({
+        next: (res) => {
+          sweetalert.fire(`${res.hospital?.name} updated successfully`)
+          this.getHospitals();
+        },
+        error: (err) => {
+          if (err.status === 0) {
+            sweetalert.fire('Error', 'No se ha podido establecer una conexión con el servidor', 'error');
+          } else {
+            sweetalert.fire('Error', err.error.msg, 'error');
+          }
+        }
+      });
+    }
   }
 
   delete(hospital: Hospital) {
@@ -125,7 +190,7 @@ export class HospitalsComponent implements OnInit {
             if (res.ok) {
               sweetalert.fire(
                 'Deleted!',
-                `The user ${hospital.name} has been deleted successfully.`,
+                `The hospital ${hospital.name} has been deleted successfully.`,
                 'success'
               )
               this.getHospitals();
@@ -145,7 +210,7 @@ export class HospitalsComponent implements OnInit {
   }
 
   openModal(hospital: Hospital) {
-    this.ims.openModal('users', hospital.id!, hospital.img!);
+    this.ims.openModal('hospitals', hospital.id!, hospital.img!);
   }
 
 }
