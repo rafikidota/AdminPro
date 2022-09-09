@@ -33,18 +33,7 @@ export class SearchService {
           switch (res.collection!) {
             case 'doctors':
               const doctors = res.data!
-                .map(doctor => {
-                  const user = new User(
-                    doctor.user.name,
-                    doctor.user.email,
-                    doctor.user.id,
-                    doctor.user.role,
-                    doctor.user.google,
-                    doctor.user.img,
-                    '');
-                  const hospital = new Hospital(doctor.hospital.name, doctor.hospital.img, doctor.hospital.user);
-                  return new Doctor(doctor.name, doctor.img, user, hospital)
-                });
+                .map(doctor => new Doctor(doctor.name, doctor.img, doctor.user, doctor.hospital));
               res.data = doctors;
               break;
             case 'hospitals':
