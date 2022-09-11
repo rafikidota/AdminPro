@@ -13,6 +13,7 @@ import { RxjsComponent } from './rxjs/rxjs.component';
 import { UsersComponent } from './managements/users/users.component';
 import { HospitalsComponent } from './managements/hospitals/hospitals.component';
 import { DoctorsComponent } from './managements/doctors/doctors.component';
+import { DoctorComponent } from './managements/doctors/doctor.component';
 
 const routes: Routes = [
   {
@@ -31,6 +32,7 @@ const routes: Routes = [
       { path: 'users', component: UsersComponent, data: { title: 'Users Managements' } },
       { path: 'hospitals', component: HospitalsComponent, data: { title: 'Hospitals Managements' } },
       { path: 'doctors', component: DoctorsComponent, data: { title: 'Doctors Managements' } },
+      { path: 'doctor/:id', component: DoctorComponent, data: { title: 'Doctors Managements' } },
     ]
   },
 ];
