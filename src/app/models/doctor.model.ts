@@ -9,7 +9,7 @@ export interface DoctorHospital {
     _id: string;
     name: string;
     user: HospitalUser;
-    img: string;
+    img?: string;
 }
 export class Doctor {
     constructor(
