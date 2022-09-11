@@ -26,8 +26,8 @@ export class UsersComponent implements OnInit, OnDestroy {
   public currentPage: number = 1;
   public totalPage: number = 0;
 
-  public imageSubs!: Subscription;
-  public editUserSubs!: Subscription;
+  private imageSubs!: Subscription;
+  private editUserSubs!: Subscription;
 
 
   constructor(

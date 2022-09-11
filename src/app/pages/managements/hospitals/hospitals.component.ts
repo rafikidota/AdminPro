@@ -26,7 +26,7 @@ export class HospitalsComponent implements OnInit, OnDestroy {
   public currentPage: number = 1;
   public totalPage: number = 0;
 
-  public imageSubs!: Subscription;
+  private imageSubs!: Subscription;
 
   constructor(
     private hs: HospitalService,
