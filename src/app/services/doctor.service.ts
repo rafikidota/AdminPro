@@ -34,6 +34,20 @@ export class DoctorService {
       );
   }
 
+  getDoctorByID(id: string) {
+    const url = `${this.base_url}/doctors/${id}`;
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('token', token || '');
+    return this.http.get<DoctorResponse>(url, { headers })
+      .pipe(
+        map(res => {
+          const doctor = new Doctor(res.doctor?.name!, res.doctor?.hospital!, res.doctor?.id!, res.doctor?.user!, res.doctor?.img!)
+          res.doctor = doctor;
+          return res;
+        })
+      );
+  }
+
   create(doctor: { name: string, hospital: string }) {
     const url = `${this.base_url}/doctors`;
     const token = localStorage.getItem('token');
