@@ -33,7 +33,7 @@ export class SearchService {
           switch (res.collection!) {
             case 'doctors':
               const doctors = res.data!
-                .map(doctor => new Doctor(doctor.name, doctor.img, doctor.user, doctor.hospital));
+                .map(doctor => new Doctor(doctor.name, doctor.hospital, doctor.id, doctor.user,doctor.img));
               res.data = doctors;
               break;
             case 'hospitals':

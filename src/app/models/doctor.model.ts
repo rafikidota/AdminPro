@@ -5,7 +5,7 @@ interface DoctorUser {
     name: string;
     img: string;
 }
-interface DoctorHospital {
+export interface DoctorHospital {
     _id: string;
     name: string;
     user: HospitalUser;
@@ -14,9 +14,9 @@ interface DoctorHospital {
 export class Doctor {
     constructor(
         public name: string,
+        public hospital?: DoctorHospital,
         public id?: string,
         public user?: DoctorUser,
-        public hospital?: DoctorHospital,
         public img?: string,
     ) { }
 }
