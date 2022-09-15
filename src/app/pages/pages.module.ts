@@ -19,6 +19,7 @@ import { UsersComponent } from './managements/users/users.component';
 import { HospitalsComponent } from './managements/hospitals/hospitals.component';
 import { DoctorsComponent } from './managements/doctors/doctors.component';
 import { DoctorComponent } from './managements/doctors/doctor.component';
+import { SearchComponent } from './search/search.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { DoctorComponent } from './managements/doctors/doctor.component';
     UsersComponent,
     HospitalsComponent,
     DoctorsComponent,
-    DoctorComponent
+    DoctorComponent,
+    SearchComponent
   ],
   exports: [
     AccountSettingsComponent,

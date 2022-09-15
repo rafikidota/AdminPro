@@ -14,6 +14,7 @@ import { UsersComponent } from './managements/users/users.component';
 import { HospitalsComponent } from './managements/hospitals/hospitals.component';
 import { DoctorsComponent } from './managements/doctors/doctors.component';
 import { DoctorComponent } from './managements/doctors/doctor.component';
+import { SearchComponent } from './search/search.component';
 
 const routes: Routes = [
   {
@@ -29,6 +30,9 @@ const routes: Routes = [
       { path: 'progress', component: ProgressComponent, data: { title: 'Progress Bar' } },
       { path: 'promise', component: PromiseComponent, data: { title: 'Promises' } },
       { path: 'rxjs', component: RxjsComponent, data: { title: 'RxJs' } },
+      { path: 'search/:query', component: SearchComponent, data: { title: 'Search' } },
+
+      //Managements
       { path: 'users', component: UsersComponent, data: { title: 'Users Managements' } },
       { path: 'hospitals', component: HospitalsComponent, data: { title: 'Hospitals Managements' } },
       { path: 'doctors', component: DoctorsComponent, data: { title: 'Doctors Managements' } },
