@@ -15,6 +15,7 @@ import { HospitalsComponent } from './managements/hospitals/hospitals.component'
 import { DoctorsComponent } from './managements/doctors/doctors.component';
 import { DoctorComponent } from './managements/doctors/doctor.component';
 import { SearchComponent } from './search/search.component';
+import { AdminGuard } from '../guards/admin.guard';
 
 const routes: Routes = [
   {
@@ -33,10 +34,12 @@ const routes: Routes = [
       { path: 'search/:query', component: SearchComponent, data: { title: 'Search' } },
 
       //Managements
-      { path: 'users', component: UsersComponent, data: { title: 'Users Managements' } },
       { path: 'hospitals', component: HospitalsComponent, data: { title: 'Hospitals Managements' } },
       { path: 'doctors', component: DoctorsComponent, data: { title: 'Doctors Managements' } },
       { path: 'doctor/:id', component: DoctorComponent, data: { title: 'Doctors Managements' } },
+      
+      //Admin
+      { path: 'users',canActivate:[AdminGuard],canLoad:[AdminGuard], component: UsersComponent, data: { title: 'Users Managements' } },
     ]
   },
 ];

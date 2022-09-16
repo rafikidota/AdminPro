@@ -23,6 +23,10 @@ export class AuthService {
     private ngZone: NgZone
   ) { }
 
+  get role() {
+    return this.user.role!;
+  }
+
   login(email: string, password: string) {
     const url = `${this.base_url}/auth`;
     const body = { email, password };
@@ -39,8 +43,8 @@ export class AuthService {
             localStorage.removeItem('token');
             localStorage.removeItem('email');
             localStorage.removeItem('menu');
-            localStorage.setItem('logout','logout');
-            this.router.navigateByUrl('/login');            
+            localStorage.setItem('logout', 'logout');
+            this.router.navigateByUrl('/login');
           } else {
             console.log(done);
             sweetalert.fire('Error', 'Ha ocurrido un error mientras se cerraba su sesión', 'error');
