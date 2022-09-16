@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { map } from 'rxjs';
+import { map, tap } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
 import { UserResponse } from '../interfaces/user-response.interface';
@@ -20,14 +20,22 @@ export class UserService {
 
   register(user: User) {
     const url = `${this.base_url}/users`;
-    return this.http.post<UserResponse>(url, user);
+    return this.http.post<UserResponse>(url, user)
+      .pipe(
+        tap(res => {
+          localStorage.setItem('token', res.token!);
+          localStorage.setItem('menu', JSON.stringify(res.menu!));
+        })
+      );
   }
+
   update(user: User) {
     const url = `${this.base_url}/users`;
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set('token', token || '');
     return this.http.put<UserResponse>(url, user, { headers });
   }
+  
   getUsers(skip: number = 0, limit: number = 0) {
     const url = `${this.base_url}/users?skip=${skip}&limit=${limit}`;
     const token = localStorage.getItem('token');

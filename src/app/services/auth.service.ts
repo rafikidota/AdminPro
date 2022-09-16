@@ -38,6 +38,7 @@ export class AuthService {
           if (done.successful) {
             localStorage.removeItem('token');
             localStorage.removeItem('email');
+            localStorage.removeItem('menu');
             localStorage.setItem('logout','logout');
             this.router.navigateByUrl('/login');            
           } else {
@@ -49,6 +50,7 @@ export class AuthService {
     } else {
       localStorage.removeItem('token');
       localStorage.removeItem('email');
+      localStorage.removeItem('menu');
       this.router.navigateByUrl('/login');
     }
   }
@@ -68,6 +70,7 @@ export class AuthService {
 
   loadUser(res: UserResponse) {
     localStorage.setItem('token', res.token!);
+    localStorage.setItem('menu', JSON.stringify(res.menu!));
     const { name, email, id, role, google, img } = res.user!;
     this.user = new User(name, email, id, role, google, img);
   }

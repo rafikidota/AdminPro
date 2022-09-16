@@ -53,6 +53,7 @@ export class LoginComponent implements OnInit {
           if (res.ok === true) {
             this.router.navigateByUrl('/dashboard');
             this.saveLocalStorage(res.token!);
+            localStorage.setItem('menu', JSON.stringify(res.menu!));
           }
         },
         error: (err) => {
