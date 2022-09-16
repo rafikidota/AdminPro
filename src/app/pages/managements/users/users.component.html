@@ -45,7 +45,7 @@
                             <tr *ngFor="let user of users">
                                 <td class="text-center">
                                     <img class="avatar cursor" 
-                                         [src]="user.imageURL" 
+                                         [src]="user.img! | image:'users'" 
                                          alt="user"
                                          (click)="openModal(user)">
                                 </td>
